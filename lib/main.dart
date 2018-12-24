@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matematik/question.dart';
+import 'package:matematik/question_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -92,10 +93,9 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Zülal ve Mehlika',
+            Text('Matematik',
                 style: Theme.of(context).textTheme.display1),
-            Text('Matematik!',),
-            Question(1, 2, Operation.PLUS,
+            QuestionWidget(Question(1, 2, Operation.PLUS),
                 style: Theme.of(context).textTheme.display1),
           ],
         ),

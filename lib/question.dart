@@ -1,21 +1,18 @@
 
-import 'package:flutter/widgets.dart';
-
 enum Operation {
   PLUS,
   MINUS,
   MULTIPLICATION
 }
 
-class Question extends StatelessWidget {
+class Question {
   final int num1;
   final int num2;
   final Operation operation;
   final int result;
   final String operationLabel;
-  final TextStyle style;
 
-  Question(this.num1, this.num2, this.operation, {this.style}) :
+  Question(this.num1, this.num2, this.operation) :
     result = _calculate(num1, num2, operation),
     operationLabel = label(operation);
 
@@ -44,18 +41,4 @@ class Question extends StatelessWidget {
         throw Error;
     }
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-       Text('$num1', textAlign: TextAlign.center, style: style),
-       Text('$operationLabel', textAlign: TextAlign.center, style: style),
-       Text('$num2', textAlign: TextAlign.center, style: style),
-      ],
-    );
-  }
-
 }
