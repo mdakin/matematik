@@ -2,7 +2,8 @@
 enum Operation {
   PLUS,
   MINUS,
-  MULTIPLICATION
+  MULTIPLICATION,
+  DIVISION,
 }
 
 class Question {
@@ -24,6 +25,8 @@ class Question {
         return num1 - num2;
       case Operation.MULTIPLICATION:
         return num1 * num2;
+      case Operation.DIVISION:
+        return num1 ~/ num2;
       default:
         throw Error;
     }
@@ -37,6 +40,8 @@ class Question {
         return '-';
       case Operation.MULTIPLICATION:
         return '*';
+      case Operation.DIVISION:
+        return '/';
       default:
         throw Error;
     }
