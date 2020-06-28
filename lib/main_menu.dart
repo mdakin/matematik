@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:matematik/excersize.dart';
+import 'package:matematik/exercise.dart';
 
 class MainMenu extends StatelessWidget {
 
-  List<Exercise> excersizes;
+  final List<Exercise> exercises;
 
-  MainMenu(this.excersizes);
+  MainMenu(this.exercises);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class MainMenu extends StatelessWidget {
       slivers: <Widget>[
         const SliverAppBar(
           pinned: true,
-          expandedHeight: 200.0,
+          expandedHeight: 100.0,
           flexibleSpace: FlexibleSpaceBar(
             title: Text('Matematik'),
           ),
@@ -30,11 +30,11 @@ class MainMenu extends StatelessWidget {
               return Container(
                 alignment: Alignment.center,
                 color: Colors.teal[100 * (index % 9)],
-                child: Text("${excersizes[index].name}",
+                child: Text("${exercises[index].name}",
                   style: TextStyle(fontSize: 15.0, color: Colors.amber),),
               );
             },
-            childCount: excersizes.length,
+            childCount: exercises.length,
           ),
         ),
       ],

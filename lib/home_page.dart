@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 
-import 'excersize.dart';
+import 'exercise.dart';
 import 'main_menu.dart';
 
 class HomePage extends StatelessWidget {
