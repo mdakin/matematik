@@ -30,7 +30,7 @@ class MainMenu extends StatelessWidget {
               return Container(
                 alignment: Alignment.center,
                 color: Colors.teal[100 * (index % 9)],
-                child: Text("${exercises[index].name}",
+                child: Text('${exercises[index].name}',
                   style: TextStyle(fontSize: 15.0, color: Colors.amber),),
               );
             },
