@@ -1,4 +1,3 @@
-
 enum Operation {
   PLUS,
   MINUS,
@@ -13,9 +12,9 @@ class Question {
   final int result;
   final String operationLabel;
 
-  Question(this.num1, this.num2, this.operation) :
-    result = _calculate(num1, num2, operation),
-    operationLabel = label(operation);
+  Question(this.num1, this.num2, this.operation)
+      : result = _calculate(num1, num2, operation),
+        operationLabel = label(operation);
 
   static int _calculate(int num1, int num2, Operation operation) {
     switch (operation) {

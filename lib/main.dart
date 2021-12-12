@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:matematik/exercise.dart';
-import 'package:matematik/main_menu.dart';
-import 'package:matematik/question.dart';
-import 'package:matematik/question_widget.dart';
 import 'package:matematik/route_generator.dart';
 
 // This is the entry point of Flutter application.
@@ -25,4 +21,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

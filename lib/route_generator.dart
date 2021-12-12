@@ -11,7 +11,7 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(builder: (_) => HomePage());
       case '/exercise':
-      // Validation of correct data type
+        // Validation of correct data type
 //        if (args is String) {
 //          return MaterialPageRoute(
 //            builder: (_) => SecondPage(
@@ -23,7 +23,7 @@ class RouteGenerator {
         // You can also throw an exception while in development.
         return _errorRoute(settings.name);
       default:
-      // If there is no such named route in the switch statement, e.g. /third
+        // If there is no such named route in the switch statement, e.g. /third
         return _errorRoute(settings.name);
     }
   }

@@ -1,4 +1,1 @@
-
-class ExerciseRegistry {
-
-}
+class ExerciseRegistry {}
