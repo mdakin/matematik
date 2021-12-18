@@ -1,3 +1,5 @@
+import 'package:matematik/choice.dart';
+
 enum Operation {
   PLUS,
   MINUS,
@@ -11,8 +13,9 @@ class Question {
   final Operation operation;
   final int result;
   final String operationLabel;
+  final List<Choice<int>> choices;
 
-  Question(this.num1, this.num2, this.operation)
+  Question(this.num1, this.num2, this.operation, this.choices)
       : result = _calculate(num1, num2, operation),
         operationLabel = label(operation);
 

@@ -1,2 +1,8 @@
 // A class representing a set of choices.
-class Choices {}
+import 'package:matematik/choice.dart';
+
+class Choices<T> {
+  List<Choice<T>> choices;
+
+  Choices(this.choices);
+}
