@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:matematik/question.dart';
 
 import 'choice.dart';
 
-enum State { waitingAnswer, correct, incorrect }
+enum QuestionState { waitingAnswer, correct, incorrect }
 
-class QuestionWidget extends StatelessWidget {
+class QuestionWidget extends StatefulWidget {
   final Question question;
   final TextStyle style;
-  State state = State.waitingAnswer;
-  Choice<int> currentChoice;
 
   QuestionWidget(this.question, {this.style});
 
-  bool answeredCorrectly = false;
+  @override
+  QuestionWidgetState createState() {
+    return QuestionWidgetState();
+  }
+}
+
+class QuestionWidgetState extends State<QuestionWidget> {
+  QuestionState questionState = QuestionState.waitingAnswer;
+  Choice<int> currentChoice;
 
   final ButtonStyle numberStyle = ElevatedButton.styleFrom(
       shape: StadiumBorder(),
@@ -37,6 +42,7 @@ class QuestionWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: renderedQuestion())),
             Container(
+                margin: EdgeInsets.all(20),
                 child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -48,6 +54,8 @@ class QuestionWidget extends StatelessWidget {
   List<Widget> renderedChoices() {
     return [for (var choice in question.choices) draggableChoice(choice)];
   }
+
+  Question get question => widget.question;
 
   Widget draggableChoice(Choice choice) => Draggable<Choice>(
       child: renderChoice(choice),
@@ -142,12 +150,14 @@ class QuestionWidget extends StatelessWidget {
               style: TextStyle(fontSize: 35, color: Colors.white),
             )),
         DragTarget<Choice<int>>(onAccept: (choice) {
-          currentChoice = choice;
-          if (choice.value == question.result) {
-            state = State.correct;
-          } else {
-            state = State.incorrect;
-          }
+          setState(() {
+            currentChoice = choice;
+            if (choice.value == question.result) {
+              questionState = QuestionState.correct;
+            } else {
+              questionState = QuestionState.incorrect;
+            }
+          });
         }, builder: (context, candidates, rejects) {
           if (candidates.length > 0) {
             return renderAnswer(choice: currentChoice);
@@ -157,13 +167,13 @@ class QuestionWidget extends StatelessWidget {
       ];
 
   Widget renderAnswer({Choice choice}) {
-    switch (state) {
-      case State.correct:
+    switch (questionState) {
+      case QuestionState.correct:
         return answerCorrect(currentChoice);
-      case State.incorrect:
+      case QuestionState.incorrect:
         return answerIncorrect(currentChoice);
       default:
-        return answerBoxWaiting;
+        return answerWaiting;
     }
   }
 
@@ -189,7 +199,7 @@ class QuestionWidget extends StatelessWidget {
         style: TextStyle(fontSize: 50, color: Colors.white),
       ));
 
-  Widget answerBoxWaiting = Container(
+  Widget answerWaiting = Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         border: Border.all(
@@ -205,22 +215,4 @@ class QuestionWidget extends StatelessWidget {
         '',
         style: TextStyle(fontSize: 50, color: Colors.white),
       ));
-
-  Widget answerBoxAccepting = Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(
-          color: Colors.green,
-          width: 3.0,
-        ),
-      ),
-      width: 75,
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.all(5),
-      alignment: Alignment.center,
-      child: Text(
-        '',
-        style: TextStyle(fontSize: 50, color: Colors.white),
-      ));
-
 }
