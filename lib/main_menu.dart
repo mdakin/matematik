@@ -39,7 +39,8 @@ class MainMenu extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => SimpleArithmeticQuestion()));
+                            builder: (context) =>
+                                SimpleArithmeticQuestionSet()));
                   },
                   child: Text('${exercises[index].name}'),
                 ),

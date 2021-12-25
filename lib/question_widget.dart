@@ -7,9 +7,8 @@ enum QuestionState { waitingAnswer, correct, incorrect }
 
 class QuestionWidget extends StatefulWidget {
   final Question question;
-  final TextStyle style;
 
-  QuestionWidget(this.question, {this.style});
+  QuestionWidget(this.question);
 
   @override
   QuestionWidgetState createState() {
@@ -52,7 +51,11 @@ class QuestionWidgetState extends State<QuestionWidget> {
   }
 
   List<Widget> renderedChoices() {
-    return [for (var choice in question.choices) draggableChoice(choice)];
+    return question.choices
+        .map((choice) => choice == currentChoice
+            ? renderEmptyChoice(choice)
+            : draggableChoice(choice))
+        .toList();
   }
 
   Question get question => widget.question;
@@ -65,19 +68,17 @@ class QuestionWidgetState extends State<QuestionWidget> {
 
   Widget renderChoice(Choice<int> choice) => Container(
       decoration: BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
-      width: 60,
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(10),
       margin: EdgeInsets.all(5),
       alignment: Alignment.center,
       child: Text(
         '${choice.value}',
-        style: TextStyle(fontSize: 50, color: Colors.white),
+        style: TextStyle(fontSize: 40, color: Colors.white),
       ));
 
   Widget renderDraggingChoice(Choice<int> choice) => Container(
       decoration: BoxDecoration(color: Colors.orange, shape: BoxShape.circle),
-      width: 70,
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(15),
       margin: EdgeInsets.all(5),
       alignment: Alignment.center,
       child: Text(
@@ -94,61 +95,29 @@ class QuestionWidgetState extends State<QuestionWidget> {
           width: 3.0,
         ),
       ),
-      width: 60,
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(10),
       margin: EdgeInsets.all(5),
       alignment: Alignment.center,
       child: Text(
         '${choice.value}',
-        style: TextStyle(fontSize: 50, color: Colors.white),
+        style: TextStyle(fontSize: 40, color: Colors.white),
       ));
 
+  Widget renderQuestion1() => Container(
+      decoration: BoxDecoration(
+          color: Colors.green,
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.all(5),
+      alignment: Alignment.center,
+      child: FittedBox(
+          child: Text(
+        '${question.num1} ${question.operationLabel} ${question.num2} = ',
+        style: TextStyle(fontSize: 50, color: Colors.white),
+      )));
+
   List<Widget> renderedQuestion() => [
-        Container(
-            decoration:
-                BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-            width: 60,
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.all(5),
-            alignment: Alignment.center,
-            child: Text(
-              '${question.num1}',
-              style: TextStyle(fontSize: 50, color: Colors.white),
-            )),
-        Container(
-            decoration: BoxDecoration(
-                color: Colors.lightBlueAccent, shape: BoxShape.circle),
-            width: 40,
-            height: 50,
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.all(5),
-            alignment: Alignment.center,
-            child: Text(
-              '${question.operationLabel}',
-              style: TextStyle(fontSize: 35, color: Colors.white),
-            )),
-        Container(
-            decoration:
-                BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-            width: 60,
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.all(5),
-            alignment: Alignment.center,
-            child: Text(
-              '${question.num2}',
-              style: TextStyle(fontSize: 50, color: Colors.white),
-            )),
-        Container(
-            decoration: BoxDecoration(
-                color: Colors.lightBlueAccent, shape: BoxShape.circle),
-            width: 40,
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.all(5),
-            alignment: Alignment.center,
-            child: Text(
-              '=',
-              style: TextStyle(fontSize: 35, color: Colors.white),
-            )),
+        renderQuestion1(),
         DragTarget<Choice<int>>(onAccept: (choice) {
           setState(() {
             currentChoice = choice;
@@ -179,8 +148,7 @@ class QuestionWidgetState extends State<QuestionWidget> {
 
   Widget answerCorrect(Choice<int> choice) => Container(
       decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
-      width: 60,
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(15),
       margin: EdgeInsets.all(5),
       alignment: Alignment.center,
       child: Text(
@@ -190,8 +158,7 @@ class QuestionWidgetState extends State<QuestionWidget> {
 
   Widget answerIncorrect(Choice<int> choice) => Container(
       decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-      width: 60,
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(15),
       margin: EdgeInsets.all(5),
       alignment: Alignment.center,
       child: Text(
@@ -207,8 +174,7 @@ class QuestionWidgetState extends State<QuestionWidget> {
           width: 3.0,
         ),
       ),
-      width: 60,
-      padding: EdgeInsets.all(5),
+      padding: EdgeInsets.all(15),
       margin: EdgeInsets.all(5),
       alignment: Alignment.center,
       child: Text(
